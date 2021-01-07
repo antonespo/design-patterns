@@ -3,38 +3,6 @@ using System.Collections.Generic;
 
 namespace SOLID_principles
 {
-    public class Shape
-    {
-        public int W { get; }
-        public int H { get; }
-
-        public Shape(int w, int h)
-        {
-            W = w;
-            H = h;
-        }
-
-        public void PrintParameters()
-        {
-            Console.WriteLine($"{W}, {H}");
-        }
-    }
-
-    public class Circle : Shape
-    {
-        public int Radius { get; }
-
-        public Circle(int w, int h, int radius) : base(w, h)
-        {
-            Radius = radius;
-        }
-
-        public new void PrintParameters()
-        {
-            Console.WriteLine($"{W}, {H}, {Radius}");
-        }
-    }
-
     class Program
     {
         static void Main(string[] args)
