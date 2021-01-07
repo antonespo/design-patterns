@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOLID-principles", "SOLID-principles\SOLID-principles.csproj", "{02AC5632-FF1F-4798-8117-AB2FB3009E4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOLID-principles", "SOLID-principles\SOLID-principles.csproj", "{02AC5632-FF1F-4798-8117-AB2FB3009E4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderPattern", "BuilderPattern\BuilderPattern.csproj", "{15383441-EA60-4DE3-A74A-CB12F00B8AD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{02AC5632-FF1F-4798-8117-AB2FB3009E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02AC5632-FF1F-4798-8117-AB2FB3009E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02AC5632-FF1F-4798-8117-AB2FB3009E4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15383441-EA60-4DE3-A74A-CB12F00B8AD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15383441-EA60-4DE3-A74A-CB12F00B8AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15383441-EA60-4DE3-A74A-CB12F00B8AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15383441-EA60-4DE3-A74A-CB12F00B8AD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
