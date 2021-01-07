@@ -3,129 +3,35 @@ using System.Collections.Generic;
 
 namespace SOLID_principles
 {
-    public enum Color
+    public class Shape
     {
-        Red, Green, Blue
-    }
+        public int W { get; }
+        public int H { get; }
 
-    public enum Size
-    {
-        Small, Medium, Large
-    }
-
-    public class Product
-    {
-        public string Name;
-        public Color Color;
-        public Size Size;
-
-        public Product(string name, Color color, Size size)
+        public Shape(int w, int h)
         {
-            Name = name;
-            Color = color;
-            Size = size;
+            W = w;
+            H = h;
+        }
+
+        public void PrintParameters()
+        {
+            Console.WriteLine($"{W}, {H}");
         }
     }
 
-    public class ProductFilter
+    public class Circle : Shape
     {
-        public IEnumerable<Product> FilterBySize(IEnumerable<Product> products, Size size)
+        public int Radius { get; }
+
+        public Circle(int w, int h, int radius) : base(w, h)
         {
-            foreach (var p in products)
-            {
-                if (p.Size == size)
-                    yield return p; 
-            }
+            Radius = radius;
         }
 
-        public IEnumerable<Product> FilterByColor(IEnumerable<Product> products, Color color)
+        public new void PrintParameters()
         {
-            foreach (var p in products)
-            {
-                if (p.Color == color)
-                    yield return p;
-            }
-        }
-
-        public IEnumerable<Product> FilterBySizeAndColor(
-            IEnumerable<Product> products, 
-            Size size, 
-            Color color)
-        {
-            foreach (var p in products)
-            {
-                if (p.Color == color && p.Size == size)
-                    yield return p;
-            }
-        }
-    }
-
-    public interface ISpecification<T>
-    {
-        bool IsSatisfied(T t); 
-    }
-
-    public interface IFilter<T>
-    {
-        public IEnumerable<T> Filter(IEnumerable<T> items, ISpecification<T> spec); 
-    }
-
-    public class ColorSpecification : ISpecification<Product>
-    {
-        private readonly Color color;
-
-        public ColorSpecification(Color color)
-        {
-            this.color = color;
-        }
-
-        public bool IsSatisfied(Product t)
-        {
-            return t.Color == color; 
-        }
-    }
-
-    public class SizeSpecification : ISpecification<Product>
-    {
-        private readonly Size size;
-
-        public SizeSpecification(Size size)
-        {
-            this.size = size;
-        }
-
-        public bool IsSatisfied(Product t)
-        {
-            return t.Size == size; 
-        }
-    }
-
-    public class AndSpecification<T> : ISpecification<T>
-    {
-        private readonly ISpecification<T> first; 
-        private readonly ISpecification<T> second;
-
-        public AndSpecification(ISpecification<T> first, ISpecification<T> second)
-        {
-            this.first = first;
-            this.second = second; 
-        }
-
-        public bool IsSatisfied(T t)
-        {
-            return first.IsSatisfied(t) && second.IsSatisfied(t); 
-        }
-    }
-
-    public class SpecificationFilter : IFilter<Product>
-    {
-        public IEnumerable<Product> Filter(IEnumerable<Product> items, ISpecification<Product> spec)
-        {
-            foreach (var i in items)
-            {
-                if (spec.IsSatisfied(i))
-                    yield return i;
-            }
+            Console.WriteLine($"{W}, {H}, {Radius}");
         }
     }
 
@@ -133,34 +39,40 @@ namespace SOLID_principles
     {
         static void Main(string[] args)
         {
-            var apple = new Product("Apple", Color.Green, Size.Small);
-            var tree = new Product("Tree", Color.Green, Size.Large);
-            var house = new Product("House", Color.Blue, Size.Large);
+            // Liskov Substitution
 
-            Product[] products = { apple, tree, house };
+            Shape circle = new Circle(2, 3, 4);
+            circle.PrintParameters();
 
-            var pf = new ProductFilter();
-            Console.WriteLine("Green products: ");
-            foreach(var p in pf.FilterByColor(products, Color.Green))
-            {
-                Console.WriteLine($" - {p.Name} is green");
-            }
+            // Open-Closed Principle
 
-            var filter = new SpecificationFilter();
-            Console.WriteLine("Green products: ");
-            foreach (var p in filter.Filter(products, new ColorSpecification(Color.Green)))
-            {
-                Console.WriteLine($" - {p.Name} is green");
-            }
+            //var apple = new Product("Apple", Color.Green, Size.Small);
+            //var tree = new Product("Tree", Color.Green, Size.Large);
+            //var house = new Product("House", Color.Blue, Size.Large);
 
-            Console.WriteLine("Green and large products: ");
-            foreach (var p in filter.Filter(
-                products, 
-                new AndSpecification<Product>(new ColorSpecification(Color.Green), new SizeSpecification(Size.Large))))
-            {
-                Console.WriteLine($" - {p.Name} is green and large");
-            }
+            //Product[] products = { apple, tree, house };
 
+            //var pf = new ProductFilter();
+            //Console.WriteLine("Green products: ");
+            //foreach (var p in pf.FilterByColor(products, Color.Green))
+            //{
+            //    Console.WriteLine($" - {p.Name} is green");
+            //}
+
+            //var filter = new SpecificationFilter();
+            //Console.WriteLine("Green products: ");
+            //foreach (var p in filter.Filter(products, new ColorSpecification(Color.Green)))
+            //{
+            //    Console.WriteLine($" - {p.Name} is green");
+            //}
+
+            //Console.WriteLine("Green and large products: ");
+            //foreach (var p in filter.Filter(
+            //    products,
+            //    new AndSpecification<Product>(new ColorSpecification(Color.Green), new SizeSpecification(Size.Large))))
+            //{
+            //    Console.WriteLine($" - {p.Name} is green and large");
+            //}
         }
     }
 }
