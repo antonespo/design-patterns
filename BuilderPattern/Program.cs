@@ -6,32 +6,69 @@ namespace BuilderPattern
     {
         public string Name;
         public string Position;
+        public double Salary; 
+
+        public override string ToString()
+        {
+            return $"{nameof(Name)}: {Name}, {nameof(Position)}: {Position}, {nameof(Salary)}: {Salary}";
+        }
     }
 
-    public class PersonInfoBuilder
+    public abstract class PersonBuilder
     {
-        protected Person person = new Person(); 
+        protected Person person = new Person();
 
-        public PersonInfoBuilder Called(string name)
+        public Person Build()
+        {
+            return person; 
+        }
+    }
+
+    public class PersonInfoBuilder<SELF> : PersonBuilder
+        where SELF: PersonInfoBuilder<SELF>
+    {
+        public SELF Called(string name)
         {
             person.Name = name;
-            return this; 
+            return (SELF) this; 
         }
+    }
 
-        public PersonInfoBuilder WorkAs(string position)
+    public class PersonJobBuilder<SELF> : PersonInfoBuilder<PersonJobBuilder<SELF>>
+        where SELF: PersonJobBuilder<SELF>
+    {
+        public SELF  WorkAs(string position)
         {
             person.Position = position;
-            return this;
+            return (SELF) this; 
         }
+    }
+
+    public class PersonSalaryBuilder<SELF> : PersonJobBuilder<PersonSalaryBuilder<SELF>>
+        where SELF : PersonSalaryBuilder<SELF>
+    {
+        public SELF HasSalary(double salary)
+        {
+            person.Salary = salary;
+            return (SELF)this; 
+        }
+    }
+
+    public class Builder : PersonSalaryBuilder<Builder>
+    {
+        public static Builder New => new Builder();
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            var builder = new PersonInfoBuilder();
-            builder.Called("Antonio").WorkAs("Software Developer"); 
-            
+            var me = Builder.New
+                .Called("Antonio")
+                .WorkAs("Developer")
+                .HasSalary(2500.70)
+                .Build();
+            Console.WriteLine(me);
         }
     }
 }
