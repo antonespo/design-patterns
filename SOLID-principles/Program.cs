@@ -46,6 +46,87 @@ namespace SOLID_principles
                     yield return p;
             }
         }
+
+        public IEnumerable<Product> FilterBySizeAndColor(
+            IEnumerable<Product> products, 
+            Size size, 
+            Color color)
+        {
+            foreach (var p in products)
+            {
+                if (p.Color == color && p.Size == size)
+                    yield return p;
+            }
+        }
+    }
+
+    public interface ISpecification<T>
+    {
+        bool IsSatisfied(T t); 
+    }
+
+    public interface IFilter<T>
+    {
+        public IEnumerable<T> Filter(IEnumerable<T> items, ISpecification<T> spec); 
+    }
+
+    public class ColorSpecification : ISpecification<Product>
+    {
+        private readonly Color color;
+
+        public ColorSpecification(Color color)
+        {
+            this.color = color;
+        }
+
+        public bool IsSatisfied(Product t)
+        {
+            return t.Color == color; 
+        }
+    }
+
+    public class SizeSpecification : ISpecification<Product>
+    {
+        private readonly Size size;
+
+        public SizeSpecification(Size size)
+        {
+            this.size = size;
+        }
+
+        public bool IsSatisfied(Product t)
+        {
+            return t.Size == size; 
+        }
+    }
+
+    public class AndSpecification<T> : ISpecification<T>
+    {
+        private readonly ISpecification<T> first; 
+        private readonly ISpecification<T> second;
+
+        public AndSpecification(ISpecification<T> first, ISpecification<T> second)
+        {
+            this.first = first;
+            this.second = second; 
+        }
+
+        public bool IsSatisfied(T t)
+        {
+            return first.IsSatisfied(t) && second.IsSatisfied(t); 
+        }
+    }
+
+    public class SpecificationFilter : IFilter<Product>
+    {
+        public IEnumerable<Product> Filter(IEnumerable<Product> items, ISpecification<Product> spec)
+        {
+            foreach (var i in items)
+            {
+                if (spec.IsSatisfied(i))
+                    yield return i;
+            }
+        }
     }
 
     class Program
@@ -64,6 +145,22 @@ namespace SOLID_principles
             {
                 Console.WriteLine($" - {p.Name} is green");
             }
+
+            var filter = new SpecificationFilter();
+            Console.WriteLine("Green products: ");
+            foreach (var p in filter.Filter(products, new ColorSpecification(Color.Green)))
+            {
+                Console.WriteLine($" - {p.Name} is green");
+            }
+
+            Console.WriteLine("Green and large products: ");
+            foreach (var p in filter.Filter(
+                products, 
+                new AndSpecification<Product>(new ColorSpecification(Color.Green), new SizeSpecification(Size.Large))))
+            {
+                Console.WriteLine($" - {p.Name} is green and large");
+            }
+
         }
     }
 }
