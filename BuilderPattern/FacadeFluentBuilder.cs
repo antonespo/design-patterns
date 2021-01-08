@@ -14,7 +14,7 @@
 
     public class WorkerBuilder
     {
-        public Worker worker = new Worker();
+        protected Worker worker = new Worker();
 
         public IdentityBuilder Is => new IdentityBuilder(worker);
         public WorkBuilder Works => new WorkBuilder(worker);
