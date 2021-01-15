@@ -6,11 +6,6 @@ using System.Linq;
 
 namespace SingletonPattern.WithoutDI
 {
-    public interface IDatabase
-    {
-        int GetPopulation(string name);
-    }
-
     public class SingletonDatabase : IDatabase
     {
         private Dictionary<string, int> capitals;
