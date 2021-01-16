@@ -4,30 +4,24 @@ namespace SingletonPattern
 {
     public class Bus
     {
-        // Static variable used by all Bus instances.
-        // Represents the time the first bus of the day starts its route.
         protected static readonly DateTime globalStartTime;
+        public int BusNumber { get; set; }
 
-        // Property for the number of each bus.
-        protected int RouteNumber { get; set; }
-
-        // Static constructor to initialize the static variable.
-        // It is invoked before the first instance constructor is run.
+        // Static constructor
         static Bus()
         {
             globalStartTime = DateTime.Now;
-
-            // The following statement produces the first line of output,
-            // and the line occurs only once.
-            Console.WriteLine("Static constructor sets global start time to {0}",
-                globalStartTime.ToLongTimeString());
         }
 
-        // Instance constructor.
-        public Bus(int routeNum)
+        // Instance constructor
+        public Bus(int busNumber)
         {
-            RouteNumber = routeNum;
-            Console.WriteLine("Bus #{0} is created.", RouteNumber);
+            BusNumber = busNumber;
+        }
+
+        public override string ToString()
+        {
+            return $"{nameof(globalStartTime)}: {globalStartTime} \n{nameof(BusNumber)}: {BusNumber} ";
         }
     }
 

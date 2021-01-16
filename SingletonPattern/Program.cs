@@ -1,4 +1,6 @@
-﻿namespace SingletonPattern
+﻿using System.Threading;
+
+namespace SingletonPattern
 {
     public interface IDatabase
     {
@@ -9,6 +11,14 @@
     {
         private static void Main(string[] args)
         {
+            // Static constructor
+            var bus = new Bus(57);
+            Thread.Sleep(500);
+            var bus2 = new Bus(44);
+            System.Console.WriteLine(bus.ToString());
+            System.Console.WriteLine(bus2.ToString());
+
+
             // Singleton - property and monostate pattern
             //var ceo = new CEO();
             //CEO.Name = "Antonio";
