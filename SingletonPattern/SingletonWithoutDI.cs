@@ -9,6 +9,7 @@ namespace SingletonPattern.WithoutDI
     public class SingletonDatabase : IDatabase
     {
         public string Name { get; set; }
+
         private Dictionary<string, int> capitals;
 
         private SingletonDatabase()
@@ -26,9 +27,10 @@ namespace SingletonPattern.WithoutDI
             return capitals[name];
         }
 
-        private static Lazy<SingletonDatabase> instance =
-            new Lazy<SingletonDatabase>(() => new SingletonDatabase());
+        //private static Lazy<SingletonDatabase> instance =
+        //    new Lazy<SingletonDatabase>(() => new SingletonDatabase());
 
-        public static SingletonDatabase Instance => instance.Value;
+        private static SingletonDatabase instance = new SingletonDatabase();
+        public static SingletonDatabase Instance { get => instance; }
     }
 }

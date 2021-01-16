@@ -11,17 +11,19 @@ namespace SingletonPattern
         static Bus()
         {
             globalStartTime = DateTime.Now;
+            Console.WriteLine("Static constructor invoked");
         }
 
-        // Instance constructor
-        public Bus(int busNumber)
-        {
-            BusNumber = busNumber;
-        }
+        //// Instance constructor
+        //public Bus(int busNumber)
+        //{
+        //    BusNumber = busNumber;
+        //}
 
         public override string ToString()
         {
-            return $"{nameof(globalStartTime)}: {globalStartTime} \n{nameof(BusNumber)}: {BusNumber} ";
+            return $"{nameof(globalStartTime)}: {globalStartTime} " +
+                   $"\n{nameof(BusNumber)}: {BusNumber}";
         }
     }
 
