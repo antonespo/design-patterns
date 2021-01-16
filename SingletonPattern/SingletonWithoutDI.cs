@@ -8,6 +8,7 @@ namespace SingletonPattern.WithoutDI
 {
     public class SingletonDatabase : IDatabase
     {
+        public string Name { get; set; }
         private Dictionary<string, int> capitals;
 
         private SingletonDatabase()

@@ -1,7 +1,4 @@
-﻿using Autofac;
-using System;
-
-namespace SingletonPattern
+﻿namespace SingletonPattern
 {
     public interface IDatabase
     {
@@ -12,21 +9,37 @@ namespace SingletonPattern
     {
         private static void Main(string[] args)
         {
-            // Singleton w/ DI
-            var cb = new ContainerBuilder();
-            cb.RegisterType<OrdinaryDatabase>().As<IDatabase>().SingleInstance();
-            cb.RegisterType<ConfigurableRecordFinder>();
-            using (var c = cb.Build())
-            {
-                var rf = c.Resolve<ConfigurableRecordFinder>();
-                var tot = rf.GetTotalPopulation(new[] { "Tokyo", "New York" });
-                Console.WriteLine(tot);
-            }
+            // Singleton - property and monostate pattern
+            //var ceo = new CEO();
+            //CEO.Name = "Antonio";
+            //ceo.Age = 30;
+            //var ceo2 = new CEO();
+            //Console.WriteLine($"Name - {CEO.Name}");
+            //Console.WriteLine($"Age - {ceo2.Age}");
 
-            // Singleton w/o DI
+
+            // Singleton w/o DI - class
             //var db = SingletonDatabase.Instance;
             //var city = "Tokyo";
-            //Console.WriteLine($"{city} has popilation {db.GetPopulation(city)}");
+            //Console.WriteLine($"{city} has population {db.GetPopulation(city)}");
+            //db.Name = "Antonio";
+            //var db1 = SingletonDatabase.Instance;
+            //Console.WriteLine(db1.Name);
+
+            //// Singleton w/ DI 2
+            //var serviceProvider = ContainerConfig.Configure();
+            //var recordFinder = serviceProvider.GetService<ConfigurableRecordFinder>();
+            //var tot = recordFinder.GetTotalPopulation(new[] { "Tokyo", "New York" });
+            //Console.WriteLine(tot);
+
+            //// Singleton w/ DI - Suggested
+            //var container = ContainerConfig.Configure();
+            //using (var scope = container.BeginLifetimeScope())
+            //{
+            //    var recordFinder = scope.Resolve<ConfigurableRecordFinder>();
+            //    var tot = recordFinder.GetTotalPopulation(new[] { "Tokyo", "New York" });
+            //    Console.WriteLine(tot);
+            //}
         }
     }
 }
