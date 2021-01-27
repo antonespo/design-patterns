@@ -1,4 +1,7 @@
-﻿namespace SingletonPattern
+﻿using Autofac;
+using System;
+
+namespace SingletonPattern
 {
     public interface IDatabase
     {
@@ -10,13 +13,13 @@
         private static void Main(string[] args)
         {
             // Singleton with DI and Autofac - Suggested
-            //var container = ContainerConfig.Configure();
-            //using (var scope = container.BeginLifetimeScope())
-            //{
-            //    var recordFinder = scope.Resolve<ConfigurableRecordFinder>();
-            //    var tot = recordFinder.GetTotalPopulation(new[] { "Tokyo", "New York" });
-            //    Console.WriteLine(tot);
-            //}
+            var container = ContainerConfig.Configure();
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var recordFinder = scope.Resolve<ConfigurableRecordFinder>();
+                var tot = recordFinder.GetTotalPopulation(new[] { "Tokyo", "New York" });
+                Console.WriteLine(tot);
+            }
 
             // Singleton with DI and Autofac - Not Suggested
             //var serviceProvider = ContainerConfig.ConfigureServiceProvider();
