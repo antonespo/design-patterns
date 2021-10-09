@@ -15,6 +15,7 @@ namespace BuilderPattern
                       .HasSalary("500 000k€")
                 .Build();
             Console.WriteLine(workerBuilder);
+            Console.ReadLine();
 
             // Fluent Builder with Recursive Generics
             //var me = Builder.New
