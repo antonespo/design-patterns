@@ -9,7 +9,7 @@
             Radius = radius;
         }
 
-        public bool Fits(RoundPeg roundPeg)
+        public bool Fits(IRoundPeg roundPeg)
         {
             return roundPeg.Radius <= Radius;
         }
