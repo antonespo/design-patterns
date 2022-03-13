@@ -1,81 +1,32 @@
 ﻿using MoreLinq;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace _01_AdapterPattern
 {
-    public class Point
+    public partial class Program
     {
-        public int X, Y;
-
-        public Point(int x, int y)
+        static void Main(string[] args)
         {
-            X = x;
-            Y = y;
+            // Example 1: Peg & Hole 
+            var roundPeg = new RoundPeg(5); 
+            var roundHole = new RoundHole(7);
+
+            Console.WriteLine($"The round peg fits the round hole: {roundHole.Fits(roundPeg)}");
+
+            var squarePeg = new SquarePeg(10);
+            // This returns an error because cannot convert
+            // Console.WriteLine($"The square peg fits the round hole: {roundHole.Fits(squarePeg)}");
+
+            var squarePegAdapter = new SquarePegAdapter(squarePeg);
+            Console.WriteLine($"The square peg fits the round hole: {roundHole.Fits(squarePegAdapter)}");
+
+            // Example 2
+            Draw();
         }
     }
 
-    public class Line
-    {
-        public Point Start, End;
-
-        public Line(Point start, Point end)
-        {
-            Start = start;
-            End = end;
-        }
-    }
-
-    public class VectorObject : Collection<Line>
-    {
-
-    }
-
-    public class VectorRectangle : VectorObject
-    {
-        public VectorRectangle(int x, int y, int width, int height)
-        {
-            Add(new Line(new Point(x, y), new Point(x + width, y)));
-            Add(new Line(new Point(x + width, y), new Point(x + width, y + height)));
-            Add(new Line(new Point(x, y), new Point(x, y + height)));
-            Add(new Line(new Point(x, y + height), new Point(x + width, y + height)));
-        }
-    }
-
-    public class LineToPointAdapter : Collection<Point>
-    {
-        private static int count = 0;
-
-        public LineToPointAdapter(Line line)
-        {
-            Console.WriteLine($"{++count}: Generating points for line [{line.Start.X},{line.Start.Y}]-[{line.End.X},{line.End.Y}] (no caching)");
-
-            int left = Math.Min(line.Start.X, line.End.X);
-            int right = Math.Max(line.Start.X, line.End.X);
-            int top = Math.Min(line.Start.Y, line.End.Y);
-            int bottom = Math.Max(line.Start.Y, line.End.Y);
-            int dx = right - left;
-            int dy = line.End.Y - line.Start.Y;
-
-            if (dx == 0)
-            {
-                for (int y = top; y <= bottom; ++y)
-                {
-                    Add(new Point(left, y));
-                }
-            }
-            else if (dy == 0)
-            {
-                for (int x = left; x <= right; ++x)
-                {
-                    Add(new Point(x, top));
-                }
-            }
-        }
-    }
-
-    public class Demo
+    public partial class Program
     {
         private static readonly List<VectorObject> vectorObjects =
             new List<VectorObject>
@@ -88,12 +39,6 @@ namespace _01_AdapterPattern
         {
             Console.Write(".");
         }
-
-        static void Main(string[] args)
-        {
-            Draw();
-        }
-
         private static void Draw()
         {
             foreach (var vo in vectorObjects)
