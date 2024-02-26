@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-SingletonPattern", "04-S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-BridgePattern", "02-BridgePattern\02-BridgePattern.csproj", "{35973007-6659-4A87-B5EE-6C0251CB6D94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-CompositePattern", "03-CompositePattern\03-CompositePattern.csproj", "{09318D8F-FA50-4908-979B-0FB2CF5C39CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-CompositePattern", "03-CompositePattern\03-CompositePattern.csproj", "{09318D8F-FA50-4908-979B-0FB2CF5C39CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03-DecoratorPattern", "03-DecoratorPattern\03-DecoratorPattern.csproj", "{80F02D35-C9EE-49B0-AA9B-09E2F9168EF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{09318D8F-FA50-4908-979B-0FB2CF5C39CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09318D8F-FA50-4908-979B-0FB2CF5C39CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09318D8F-FA50-4908-979B-0FB2CF5C39CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80F02D35-C9EE-49B0-AA9B-09E2F9168EF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80F02D35-C9EE-49B0-AA9B-09E2F9168EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80F02D35-C9EE-49B0-AA9B-09E2F9168EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80F02D35-C9EE-49B0-AA9B-09E2F9168EF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{B8BD5977-6A3C-4F37-87A1-9DC134B9901B} = {B8E76CE6-3B15-4FE7-BC47-05AA6A88971F}
 		{35973007-6659-4A87-B5EE-6C0251CB6D94} = {A9EEB6F3-4967-496F-B9D2-BBCAC385935F}
 		{09318D8F-FA50-4908-979B-0FB2CF5C39CD} = {A9EEB6F3-4967-496F-B9D2-BBCAC385935F}
+		{80F02D35-C9EE-49B0-AA9B-09E2F9168EF8} = {A9EEB6F3-4967-496F-B9D2-BBCAC385935F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E6EE3866-ECD8-44E4-BB5B-4B330F33A5AD}
